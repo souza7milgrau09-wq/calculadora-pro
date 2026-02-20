@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Pro | Daniel</title>
+  <title>Calculadora Científica Pro | Daniel</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,11 +15,24 @@
       </div>
 
       <div class="buttons">
+
+        <!-- Linha científica -->
+        <button onclick="appendFunction('Math.sin(')" class="scientific">sin</button>
+        <button onclick="appendFunction('Math.cos(')" class="scientific">cos</button>
+        <button onclick="appendFunction('Math.tan(')" class="scientific">tan</button>
+        <button onclick="appendFunction('Math.log10(')" class="scientific">log</button>
+
+        <button onclick="appendFunction('Math.sqrt(')" class="scientific">√</button>
+        <button onclick="appendValue('**')" class="scientific">xʸ</button>
+        <button onclick="appendValue('Math.PI')" class="scientific">π</button>
+        <button onclick="appendValue('(')" class="scientific">(</button>
+
+        <button onclick="appendValue(')')" class="scientific">)</button>
         <button onclick="clearDisplay()" class="operator">C</button>
         <button onclick="deleteLast()" class="operator">DEL</button>
-        <button onclick="appendValue('%')" class="operator">%</button>
         <button onclick="appendValue('/')" class="operator">÷</button>
 
+        <!-- Números -->
         <button onclick="appendValue('7')">7</button>
         <button onclick="appendValue('8')">8</button>
         <button onclick="appendValue('9')">9</button>
@@ -38,6 +51,7 @@
         <button onclick="appendValue('0')" class="zero">0</button>
         <button onclick="appendValue('.')">.</button>
         <button onclick="calculate()" class="equal">=</button>
+
       </div>
     </div>
 
