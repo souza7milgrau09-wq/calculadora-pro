@@ -1,14 +1,17 @@
 function login(){
 const user=document.getElementById("username").value.trim();
 const pass=document.getElementById("password").value.trim();
+const error=document.getElementById("error");
 
 if(user.length<3 || pass.length<3){
-document.getElementById("error").innerText="Dados inválidos";
+error.innerText="Usuário e senha precisam ter no mínimo 3 caracteres.";
 return;
 }
 
 localStorage.setItem("calcUser",user);
-localStorage.setItem("calcPass",pass);
+localStorage.setItem("theme","dark");
+localStorage.setItem("angle","deg");
+
 window.location.href="index.html";
 }
 
