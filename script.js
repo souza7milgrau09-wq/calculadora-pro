@@ -4,6 +4,16 @@ let isDegree=true;
 function initApp(){
 const user=localStorage.getItem("calcUser");
 document.getElementById("welcome").innerText="Olá, "+user;
+
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+}
+
+if(localStorage.getItem("angle")==="rad"){
+isDegree=false;
+document.getElementById("angleMode").innerText="RAD";
+}
+
 loadHistory(user,renderHistory);
 }
 
@@ -13,11 +23,14 @@ function deleteLast(){ result.value=result.value.slice(0,-1); }
 
 function toggleTheme(){
 document.body.classList.toggle("light");
+localStorage.setItem("theme",
+document.body.classList.contains("light")?"light":"dark");
 }
 
 function toggleAngle(){
 isDegree=!isDegree;
 document.getElementById("angleMode").innerText=isDegree?"DEG":"RAD";
+localStorage.setItem("angle",isDegree?"deg":"rad");
 }
 
 function calculate(){
