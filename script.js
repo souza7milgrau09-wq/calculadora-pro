@@ -1,61 +1,57 @@
-const result = document.getElementById("result");
-let isDegree = true;
+const result=document.getElementById("result");
+let isDegree=true;
 
-function appendValue(value) {
-  result.value += value;
+function initApp(){
+const user=localStorage.getItem("calcUser");
+document.getElementById("welcome").innerText="Olá, "+user;
+loadHistory(user,renderHistory);
 }
 
-function clearDisplay() {
-  result.value = "";
+function appendValue(v){ result.value+=v; }
+function clearDisplay(){ result.value=""; }
+function deleteLast(){ result.value=result.value.slice(0,-1); }
+
+function toggleTheme(){
+document.body.classList.toggle("light");
 }
 
-function deleteLast() {
-  result.value = result.value.slice(0, -1);
+function toggleAngle(){
+isDegree=!isDegree;
+document.getElementById("angleMode").innerText=isDegree?"DEG":"RAD";
 }
 
-function toggleMode() {
-  document.body.classList.toggle("light");
-}
-
-function toggleAngle() {
-  isDegree = !isDegree;
-  document.getElementById("angleMode").innerText = isDegree ? "DEG" : "RAD";
-}
-
-function calculate() {
-  try {
-    let expression = result.value;
-
-    expression = expression.replace(/π/g, "Math.PI");
-    expression = expression.replace(/√/g, "Math.sqrt");
-    expression = expression.replace(/log/g, "Math.log10");
-
-    expression = expression.replace(/sin\((.*?)\)/g, (_, value) => {
-      return `Math.sin(${isDegree ? `(${value})*Math.PI/180` : value})`;
-    });
-
-    expression = expression.replace(/cos\((.*?)\)/g, (_, value) => {
-      return `Math.cos(${isDegree ? `(${value})*Math.PI/180` : value})`;
-    });
-
-    expression = expression.replace(/tan\((.*?)\)/g, (_, value) => {
-      return `Math.tan(${isDegree ? `(${value})*Math.PI/180` : value})`;
-    });
-
-    const safeFunction = new Function(`return ${expression}`);
-    result.value = safeFunction();
-
-  } catch {
-    result.value = "Erro";
-  }
-}
-
-// Teclado
-document.addEventListener("keydown", function(e) {
-  if (!isNaN(e.key) || "+-*/().".includes(e.key)) {
-    result.value += e.key;
-  }
-  if (e.key === "Enter") calculate();
-  if (e.key === "Backspace") deleteLast();
-  if (e.key === "Escape") clearDisplay();
+function calculate(){
+try{
+let exp=result.value
+.replace(/√\(/g,"Math.sqrt(")
+.replace(/sin\((.*?)\)/g,(_,v)=>{
+return `Math.sin(${isDegree?`(${v})*Math.PI/180`:v})`;
+})
+.replace(/cos\((.*?)\)/g,(_,v)=>{
+return `Math.cos(${isDegree?`(${v})*Math.PI/180`:v})`;
+})
+.replace(/tan\((.*?)\)/g,(_,v)=>{
+return `Math.tan(${isDegree?`(${v})*Math.PI/180`:v})`;
 });
+
+const value=new Function("return "+exp)();
+const user=localStorage.getItem("calcUser");
+
+saveHistory(user,result.value,value);
+result.value=value;
+loadHistory(user,renderHistory);
+
+}catch{
+result.value="Erro";
+}
+}
+
+function renderHistory(data){
+const list=document.getElementById("historyList");
+list.innerHTML="";
+data.reverse().forEach(item=>{
+const li=document.createElement("li");
+li.innerText=item.expression+" = "+item.result;
+list.appendChild(li);
+});
+}

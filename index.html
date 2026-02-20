@@ -1,71 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Científica Pro | Daniel</title>
-  <link rel="stylesheet" href="style.css">
-  <div class="top-controls">
-  <button onclick="toggleMode()">🌙</button>
-  <button onclick="toggleAngle()" id="angleMode">DEG</button>
-</div>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Científica Pro</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
 </head>
-<body>
+<body onload="checkLogin(); initApp();">
 
-  <div class="container">
-    <div class="calculator">
-      <div class="display">
-        <input type="text" id="result" disabled>
-      </div>
+<div class="container">
 
-      <div class="buttons">
+<div class="top-bar">
+<span id="welcome"></span>
+<button onclick="logout()">Sair</button>
+</div>
 
-        <!-- Linha científica -->
-        <button onclick="appendFunction('Math.sin(')" class="scientific">sin</button>
-        <button onclick="appendFunction('Math.cos(')" class="scientific">cos</button>
-        <button onclick="appendFunction('Math.tan(')" class="scientific">tan</button>
-        <button onclick="appendFunction('Math.log10(')" class="scientific">log</button>
+<div class="calculator">
 
-        <button onclick="appendFunction('Math.sqrt(')" class="scientific">√</button>
-        <button onclick="appendValue('**')" class="scientific">xʸ</button>
-        <button onclick="appendValue('Math.PI')" class="scientific">π</button>
-        <button onclick="appendValue('(')" class="scientific">(</button>
+<div class="top-controls">
+<button onclick="toggleTheme()">🌙</button>
+<button onclick="toggleAngle()" id="angleMode">DEG</button>
+</div>
 
-        <button onclick="appendValue(')')" class="scientific">)</button>
-        <button onclick="clearDisplay()" class="operator">C</button>
-        <button onclick="deleteLast()" class="operator">DEL</button>
-        <button onclick="appendValue('/')" class="operator">÷</button>
+<div class="display">
+<input type="text" id="result" disabled>
+</div>
 
-        <!-- Números -->
-        <button onclick="appendValue('7')">7</button>
-        <button onclick="appendValue('8')">8</button>
-        <button onclick="appendValue('9')">9</button>
-        <button onclick="appendValue('*')" class="operator">×</button>
+<div class="buttons">
+<button onclick="appendValue('sin(')" class="scientific">sin</button>
+<button onclick="appendValue('cos(')" class="scientific">cos</button>
+<button onclick="appendValue('tan(')" class="scientific">tan</button>
+<button onclick="appendValue('√(')" class="scientific">√</button>
 
-        <button onclick="appendValue('4')">4</button>
-        <button onclick="appendValue('5')">5</button>
-        <button onclick="appendValue('6')">6</button>
-        <button onclick="appendValue('-')" class="operator">−</button>
+<button onclick="clearDisplay()" class="operator">C</button>
+<button onclick="deleteLast()" class="operator">DEL</button>
+<button onclick="appendValue('/')" class="operator">÷</button>
+<button onclick="appendValue('*')" class="operator">×</button>
 
-        <button onclick="appendValue('1')">1</button>
-        <button onclick="appendValue('2')">2</button>
-        <button onclick="appendValue('3')">3</button>
-        <button onclick="appendValue('+')" class="operator">+</button>
+<button onclick="appendValue('7')">7</button>
+<button onclick="appendValue('8')">8</button>
+<button onclick="appendValue('9')">9</button>
+<button onclick="appendValue('-')" class="operator">−</button>
 
-        <button onclick="appendValue('0')" class="zero">0</button>
-        <button onclick="appendValue('.')">.</button>
-        <button onclick="calculate()" class="equal">=</button>
+<button onclick="appendValue('4')">4</button>
+<button onclick="appendValue('5')">5</button>
+<button onclick="appendValue('6')">6</button>
+<button onclick="appendValue('+')" class="operator">+</button>
 
-      </div>
-    </div>
+<button onclick="appendValue('1')">1</button>
+<button onclick="appendValue('2')">2</button>
+<button onclick="appendValue('3')">3</button>
+<button onclick="appendValue('.')">.</button>
 
-    <footer>
-      © 2026 Daniel. Todos os direitos reservados.
-    </footer>
-  </div>
+<button onclick="appendValue('0')" class="zero">0</button>
+<button onclick="calculate()" class="equal">=</button>
+</div>
 
-  <script src="script.js"></script>
+<div class="history">
+<h3>Histórico</h3>
+<ul id="historyList"></ul>
+</div>
+
+</div>
+
+<footer>
+© 2026 Daniel. Todos os direitos reservados.
+</footer>
+
+</div>
+
+<script src="auth.js"></script>
+<script src="db.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
